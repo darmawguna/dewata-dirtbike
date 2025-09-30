@@ -12,15 +12,13 @@ function App() {
   return (
     <div className="overflow-hidden font-sans">
       <Navbar
-        logoSrc="/logo.png"
         items={[
-          { label: "HOME", href: "#" },
-          { label: "OUR BIKES", href: "#bikes" },
-          { label: "ABOUT US", href: "#about" },
+          { key: "home", href: "#" },
+          { key: "bikes", href: "#bikes" },
+          { key: "about", href: "#about" },
         ]}
-        onBookNow={() => alert("Booking!")}
-        initialLang="EN"
       />
+
       <HeroSection />
       <AboutSection />
       <TourSection />

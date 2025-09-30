@@ -1,52 +1,35 @@
+// src/components/TourSection.jsx
 import React from "react";
+import { useI18n } from "../i18n/I18nProvider";
 import tour1 from "../assets/tour1.jpeg";
 import tour2 from "../assets/tour2.jpeg";
 import tour3 from "../assets/tour3.jpeg";
 
-const tours = [
-  {
-    id: 1,
-    title: "Beginner Trail",
-    desc: "Perfect for new riders exploring Bali’s countryside.",
-    img: tour1,
-    meta: "Easy • 2–3 hrs",
-  },
-  {
-    id: 2,
-    title: "Intermediate Ride",
-    desc: "A balanced adventure through rice fields and hills.",
-    img: tour2,
-    meta: "Moderate • 3–4 hrs",
-  },
-  {
-    id: 3,
-    title: "Extreme Jungle",
-    desc: "For experienced riders seeking adrenaline rush.",
-    img: tour3,
-    meta: "Hard • 4–6 hrs",
-  },
-];
+export default function TourSection() {
+  const { t } = useI18n();
+  // items berisi array { title, meta, desc } dari translations
+  const items = t("tours.items");
+  const imgs = [tour1, tour2, tour3];
 
-const TourSection = () => {
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section id="bikes" className="bg-white py-16 sm:py-20">
       <div className="w-full px-4 sm:px-6 lg:px-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto">
           <span className="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-600 ring-1 ring-orange-100">
-            Choose Your Adventure
+            {t("tours.badge")}
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight uppercase text-orange-500">
-            Our Tours
+            {t("tours.title")}
           </h2>
           <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-orange-500/80" />
         </div>
 
         {/* Cards */}
         <div className="mt-10 grid gap-6 sm:gap-8 md:grid-cols-3">
-          {tours.map((tour) => (
+          {items.map((tour, i) => (
             <article
-              key={tour.id}
+              key={tour.title}
               className="
                 group overflow-hidden rounded-2xl bg-white
                 ring-1 ring-gray-200 shadow-md transition
@@ -55,17 +38,18 @@ const TourSection = () => {
             >
               <figure className="relative">
                 <img
-                  src={tour.img}
+                  src={imgs[i]}
                   alt={tour.title}
-                  className="block h-56 w-full object-cover sm:h-60 md:h-64"
                   loading="lazy"
                   decoding="async"
+                  className="block h-56 w-full object-cover sm:h-60 md:h-64"
                 />
-                {/* subtle overlay & label */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <span className="absolute left-3 top-3 rounded-full bg-orange-500/90 px-3 py-1 text-xs font-semibold text-white shadow">
-                  {tour.meta}
-                </span>
+                {tour.meta && (
+                  <span className="absolute left-3 top-3 rounded-full bg-orange-500/90 px-3 py-1 text-xs font-semibold text-white shadow">
+                    {tour.meta}
+                  </span>
+                )}
               </figure>
 
               <div className="p-6">
@@ -76,16 +60,16 @@ const TourSection = () => {
 
                 <div className="mt-5 flex items-center justify-between">
                   <a
-                    href="#booking"
+                    href="#contact"
                     className="inline-flex items-center rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
                   >
-                    Book Now
+                    {t("tours.book")}
                   </a>
                   <a
                     href="#details"
                     className="text-sm font-medium text-orange-600 hover:text-orange-700"
                   >
-                    Details →
+                    {t("tours.details")}
                   </a>
                 </div>
               </div>
@@ -95,6 +79,4 @@ const TourSection = () => {
       </div>
     </section>
   );
-};
-
-export default TourSection;
+}
